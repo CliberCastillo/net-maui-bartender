@@ -3,22 +3,31 @@ using PETS.Service;
 using PropertyChanged;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace PETS.ViewModel
 {
     [AddINotifyPropertyChangedInterface]
-    public partial class ListCocktailViewModel : INotifyPropertyChanged
+    public partial class ListCocktailViewModel 
     {
         private readonly ICocktailService _cocktailService;
         public ListCocktailViewModel(ICocktailService cocktailService)
         {
             _cocktailService = cocktailService;
-            ShowCocktails();
+            Task.Run(async () =>
+            {
+                loading = true;
+                await ShowCocktails();
+                loading = false;
+            });
         }
+        public bool loading { get; set; }
         public ICommand AlertCommand => new Command(async () =>
         {
+            loading = true;
             await ShowCocktails();
+            loading = false;
         });
         public ObservableCollection<Drink> cocktails
         {

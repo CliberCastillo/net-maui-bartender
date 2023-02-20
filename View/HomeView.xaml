@@ -7,88 +7,102 @@
              BackgroundColor="{StaticResource Primary}"
              >
     <ScrollView>
-        <Grid RowDefinitions=".1*,*">
-            <HorizontalStackLayout Grid.Row="0"
-                                   HorizontalOptions="End"
-                                   >
-                <Button Text="↺"
-                        FontSize="30"
-                        FontAttributes="Bold"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Command="{Binding UpdateRandomCocktail}"
-                        BackgroundColor="Transparent"/>
+        <Grid>
+            <Grid RowDefinitions=".1*,*">
+                <HorizontalStackLayout Grid.Row="0"
+                                       HorizontalOptions="End"
+                                       >
+                    <Button Text="↺"
+                            FontSize="30"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Command="{Binding UpdateRandomCocktail}"
+                            BackgroundColor="Transparent"/>
 
-                <Button Text="≡"
-                        FontSize="30"
-                        FontAttributes="Bold"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Center"
-                        Margin="0,0,35,0"
-                        BackgroundColor="Transparent"
-                        Clicked="Button_Clicked"/>
-            </HorizontalStackLayout>
-            <VerticalStackLayout Grid.Row="1"
-                                 VerticalOptions="Center">
-                <Border Margin="50,0,50,10"
-                        Stroke="{StaticResource Primary}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 20">
-                    <Border.Shadow>
-                        <Shadow Offset="10,10"
-                                Opacity=".3"
-                                Brush="{StaticResource Primary}"/>
-                    </Border.Shadow>
-                    <Image Source="{Binding image}"
-                           />
+                    <Button Text="≡"
+                            FontSize="30"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Margin="0,0,35,0"
+                            BackgroundColor="Transparent"
+                            Clicked="Button_Clicked"/>
+                </HorizontalStackLayout>
+                <VerticalStackLayout Grid.Row="1"
+                                     VerticalOptions="Center">
+                    <Border Margin="50,0,50,10"
+                            Stroke="{StaticResource Primary}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 20">
+                        <Border.Shadow>
+                            <Shadow Offset="10,10"
+                                    Opacity=".3"
+                                    Brush="{StaticResource Primary}"/>
+                        </Border.Shadow>
+                        <Image Source="{Binding image}"
+                               />
 
-                </Border>
-                <Label Text="{Binding category}"
-                       Margin="50,10,0,0"
-                       TextColor="{StaticResource Gray400}"/>
-                <Grid ColumnDefinitions="*,*">
+                    </Border>
+                    <Label Text="{Binding category}"
+                           Margin="50,10,0,0"
+                           TextColor="{StaticResource Gray400}"/>
+                    <Grid ColumnDefinitions="*,*">
 
-                    <Label Text="{Binding name}"
-                           Margin="50,0,0,0"
-                           Grid.Column="0"
-                           FontAttributes="Bold"
-                           FontSize="17"
+                        <Label Text="{Binding name}"
+                               Margin="50,0,0,0"
+                               Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="17"
+                               TextColor="White"/>
+
+                        <Frame HasShadow="false"
+                               Padding="8,0,8,0"
+                               Margin="0,0,50,0"
+                               Grid.Column="1"
+                               BorderColor="Transparent"
+                               BackgroundColor="{StaticResource Primary}"
+                               >
+
+                            <StackLayout Orientation="Horizontal"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Center">
+                                <Label Text="{Binding like}"
+                                       TextColor="Yellow"
+                                       FontAttributes="Bold"/>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                    <Label Text="{Binding description}"
+                           x:Name="lblDescription"
+                           Margin="50,20,50,0"
                            TextColor="White"/>
 
-                    <Frame HasShadow="false"
-                           Padding="8,0,8,0"
-                           Margin="0,0,50,0"
-                           Grid.Column="1"
-                           BorderColor="Transparent"
-                           BackgroundColor="{StaticResource Primary}"
-                           >
+                    <Grid ColumnDefinitions=".2*,.2*,.6*"
+                          Margin="50,0,50,50">
+                        <Button Text="♡"
+                                TextColor="White"
+                                Margin="1"/>
+                        <Button Text="⠕"
+                                TextColor="White"
+                                Grid.Column="1"
+                                Command="{Binding ShareCocktail}"
+                                Margin="1"/>
+                        <Button Text="MAS DETALLES"
+                                FontAttributes="Bold"
+                                Grid.Column="2"
+                                Margin="1"/>
+                    </Grid>
 
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="End"
-                                     VerticalOptions="Center">
-                            <Label Text="{Binding like}"
-                                   TextColor="Yellow"
-                                   FontAttributes="Bold"/>
-                        </StackLayout>
-                    </Frame>
-                </Grid>
-                <Label Text="{Binding description}"
-                       x:Name="lblDescription"
-                       Margin="50,20,50,0"
-                       TextColor="White"/>
-
-                <Grid ColumnDefinitions=".2*,.8*"
-                      Margin="50,0,50,30">
-                    <Button Text="♡"
-                            TextColor="White"
-                            Margin="1"/>
-                    <Button Text="VER MAS DETALLES"
-                            FontAttributes="Bold"
-                            Grid.Column="2"
-                            Margin="1"/>
-                </Grid>
-
-            </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Grid>
+            <Grid IsVisible="{Binding loading}"
+                  BackgroundColor="Black"
+                  Opacity="0.85">
+                <ActivityIndicator IsRunning="{Binding loading}"
+                                   HorizontalOptions="Center"
+                                   Color="{StaticResource White}" />
+            </Grid>
         </Grid>
     </ScrollView>
 </ContentPage>

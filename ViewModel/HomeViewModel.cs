@@ -1,29 +1,45 @@
-﻿using PETS.Service;
-using PETS.View;
+﻿using PETS.Model;
+using PETS.Service;
 using PropertyChanged;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace PETS.ViewModel
 {
     [AddINotifyPropertyChangedInterface]
-    public partial class HomeViewModel : INotifyPropertyChanged 
+    public partial class HomeViewModel
     {
         private readonly ICocktailService _cocktailService;
         public HomeViewModel(ICocktailService cocktailService)
         {
             _cocktailService = cocktailService;
-            ShowCocktail();
+            Task.Run(async () =>
+            {
+                loading = true;
+                await ShowCocktail();
+                loading = false;
+            });
         }
         public string image { get; set; }
         public string category { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public string like { get; set; }
+        public bool loading { get; set; }
 
         public ICommand UpdateRandomCocktail => new Command(async () =>
         {
+            loading = true;
             await ShowCocktail();
+            loading = false;
+        });
+        public ICommand ShareCocktail => new Command(async () =>
+        {
+            string text = $"¡Hola! El Cocktel {name} de categoria {category} se prepara siguiendo los pasos siguientes:\r\n\r\n {description}";
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Text = text,
+                Title = "Compartir Cocktel"
+            });
         });
         public async Task ShowCocktail()
         {
@@ -36,10 +52,11 @@ namespace PETS.ViewModel
             description = SliceDescription(descriptionLanguage);
             like = Like();
         }
+
         public string Like()
         {
             Random random = new Random();
-            int randomNumber = random.Next(1,6);
+            int randomNumber = random.Next(1, 6);
             var like = string.Empty;
 
             switch (randomNumber)
@@ -75,7 +92,7 @@ namespace PETS.ViewModel
                 var countSteps = descriptions.Length - count;
                 if (countSteps < 1)
                     break;
-                if(count != descriptions.Length)
+                if (count != descriptions.Length)
                 {
                     description = description + $"● {item.TrimStart()} \r\n\r\n";
                     count++;
