@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PETS.View.HomeView"
+             Title="HomeView"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource Primary}"
+             >
+    <ScrollView>
+        <Grid RowDefinitions=".1*,*">
+            <HorizontalStackLayout Grid.Row="0"
+                                   HorizontalOptions="End"
+                                   >
+                <Button Text="↺"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Command="{Binding UpdateRandomCocktail}"
+                        BackgroundColor="Transparent"/>
+
+                <Button Text="≡"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,0,35,0"
+                        BackgroundColor="Transparent"
+                        Clicked="Button_Clicked"/>
+            </HorizontalStackLayout>
+            <VerticalStackLayout Grid.Row="1"
+                                 VerticalOptions="Center">
+                <Border Margin="50,0,50,10"
+                        Stroke="{StaticResource Primary}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20">
+                    <Border.Shadow>
+                        <Shadow Offset="10,10"
+                                Opacity=".3"
+                                Brush="{StaticResource Primary}"/>
+                    </Border.Shadow>
+                    <Image Source="{Binding image}"
+                           />
+
+                </Border>
+                <Label Text="{Binding category}"
+                       Margin="50,10,0,0"
+                       TextColor="{StaticResource Gray400}"/>
+                <Grid ColumnDefinitions="*,*">
+
+                    <Label Text="{Binding name}"
+                           Margin="50,0,0,0"
+                           Grid.Column="0"
+                           FontAttributes="Bold"
+                           FontSize="17"
+                           TextColor="White"/>
+
+                    <Frame HasShadow="false"
+                           Padding="8,0,8,0"
+                           Margin="0,0,50,0"
+                           Grid.Column="1"
+                           BorderColor="Transparent"
+                           BackgroundColor="{StaticResource Primary}"
+                           >
+
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="Center">
+                            <Label Text="{Binding like}"
+                                   TextColor="Yellow"
+                                   FontAttributes="Bold"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+                <Label Text="{Binding description}"
+                       x:Name="lblDescription"
+                       Margin="50,20,50,0"
+                       TextColor="White"/>
+
+                <Grid ColumnDefinitions=".2*,.8*"
+                      Margin="50,0,50,30">
+                    <Button Text="♡"
+                            TextColor="White"
+                            Margin="1"/>
+                    <Button Text="VER MAS DETALLES"
+                            FontAttributes="Bold"
+                            Grid.Column="2"
+                            Margin="1"/>
+                </Grid>
+
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
