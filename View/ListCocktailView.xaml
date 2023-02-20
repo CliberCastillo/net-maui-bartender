@@ -6,8 +6,7 @@
              Shell.NavBarIsVisible="False"
              BackgroundColor="{StaticResource Primary}">
     <ScrollView>
-        <Grid>
-            <Grid RowDefinitions=".1*,*">
+        <Grid RowDefinitions=".1*,*">
                 <HorizontalStackLayout Grid.Row="0"
                                        HorizontalOptions="Start"
                                        >
@@ -69,13 +68,5 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </Grid>
-            <Grid IsVisible="{Binding loading}"
-                      BackgroundColor="Black"
-                      Opacity="0.85">
-                <ActivityIndicator IsRunning="{Binding loading}"
-                                       HorizontalOptions="Center"
-                                       Color="{StaticResource White}" />
-            </Grid>
-        </Grid>
     </ScrollView>
 </ContentPage>
