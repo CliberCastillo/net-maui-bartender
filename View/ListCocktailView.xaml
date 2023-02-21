@@ -10,20 +10,22 @@
                 <HorizontalStackLayout Grid.Row="0"
                                        HorizontalOptions="Start"
                                        >
-                    <Button Text="⇽"
-                            FontSize="30"
-                            Margin="10,0,0,0"
-                            FontAttributes="Bold"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Start"
-                            Command="{Binding UpdateRandomCocktail}"
-                            BackgroundColor="Transparent"/>
+                <Button Text="←"
+                        FontSize="25"
+                        Margin="10,0,0,0"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        BackgroundColor="Transparent"
+                        Clicked="Button_Clicked"/>
                 </HorizontalStackLayout>
                 <CollectionView x:Name="myCollectionView" 
                                 Grid.Row="1"
                                 Margin="10,0,10,15"
                                 ItemsSource="{Binding cocktails}"
-                                SelectionMode="None">
+                                SelectionMode="Single"
+                                RemainingItemsThreshold="5"
+                                VerticalScrollBarVisibility="Always"
+                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" 
                                          Span="1"/>
@@ -37,18 +39,18 @@
                                         StrokeShape="RoundRectangle 20"
                                         BackgroundColor="{StaticResource Secondary}">
                                     <Grid ColumnDefinitions=".3*,.7*">
-                                        <Image Source="{Binding strDrinkThumb}"
+                                        <Image Source="{Binding image}"
                                                        WidthRequest="100"
                                                        HeightRequest="100"
                                                        />
                                         <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                            <Label Text="{Binding strDrink}"
+                                            <Label Text="{Binding nombre}"
                                                    Margin="10,0,0,0"
                                                    TextColor="White"
                                                    FontSize="18"
                                                    FontAttributes="Bold"
                                                    />
-                                            <Label Text="{Binding strCategory}"
+                                            <Label Text="{Binding con}"
                                                    Margin="10,0,0,0"
                                                    TextColor="{StaticResource Gray400}"
                                                    FontSize="14"

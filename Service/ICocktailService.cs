@@ -4,7 +4,7 @@ namespace PETS.Service
 {
     public interface ICocktailService
     {
-        Task<Cocktail> GetCocktailAsync();
-        Task<Cocktail> GetRandomCocktailAsync();
+        Task<List<Drink>> GetCocktailAsync();
+        //Task<Cocktail> GetRandomCocktailAsync();
     }
 }

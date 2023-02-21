@@ -3,13 +3,14 @@ using PETS.Service;
 using PropertyChanged;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace PETS.ViewModel
 {
     [AddINotifyPropertyChangedInterface]
-    public partial class ListCocktailViewModel 
+    public partial class ListCocktailViewModel
     {
         private readonly ICocktailService _cocktailService;
         public ListCocktailViewModel(ICocktailService cocktailService)
@@ -17,17 +18,19 @@ namespace PETS.ViewModel
             _cocktailService = cocktailService;
             Task.Run(async () =>
             {
-                loading = true;
                 await ShowCocktails();
-                loading = false;
             });
         }
-        public bool loading { get; set; }
+        public ICommand LoadMoreCommand => new Command(async () =>
+        {
+        });
         public ICommand AlertCommand => new Command(async () =>
         {
-            loading = true;
             await ShowCocktails();
-            loading = false;
+        });
+        public ICommand GoHome => new Command(async () =>
+        {
+            await ShowCocktails();
         });
         public ObservableCollection<Drink> cocktails
         {
@@ -37,8 +40,7 @@ namespace PETS.ViewModel
         public async Task ShowCocktails()
         {
             var lstCocktails = await _cocktailService.GetCocktailAsync();
-            List<Drink> list = lstCocktails.drinks.OrderBy(x => x.strDrink).ToList();
-            foreach (var item in list)
+            foreach (var item in lstCocktails)
             {
                 item.like = Like();
                 cocktails.Add(item);

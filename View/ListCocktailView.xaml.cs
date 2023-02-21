@@ -9,4 +9,9 @@ public partial class ListCocktailView : ContentPage
 		InitializeComponent();
 		this.BindingContext = listCocktailViewModel;
 	}
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
+    }
 }

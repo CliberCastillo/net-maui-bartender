@@ -34,7 +34,7 @@ namespace PETS.ViewModel
         });
         public ICommand ShareCocktail => new Command(async () =>
         {
-            string text = $"¡Hola! El Cocktel {name} de categoria {category} se prepara siguiendo los pasos siguientes:\r\n\r\n {description}";
+            string text = $"¡Hola! El Cocktel {name} en base a Ron se prepara siguiendo los pasos siguientes:\r\n\r\n{description}";
             await Share.RequestAsync(new ShareTextRequest
             {
                 Text = text,
@@ -43,13 +43,12 @@ namespace PETS.ViewModel
         });
         public async Task ShowCocktail()
         {
-            var randomCocktail = await _cocktailService.GetRandomCocktailAsync();
-            var drink = randomCocktail.drinks.FirstOrDefault();
-            image = drink.strDrinkThumb;
-            category = drink.strCategory;
-            name = drink.strDrink;
-            var descriptionLanguage = drink.strInstructionsES == null ? drink.strInstructions : drink.strInstructionsES;
-            description = SliceDescription(descriptionLanguage);
+            var randomCocktail = await _cocktailService.GetCocktailAsync();
+            var drink = randomCocktail.FirstOrDefault();
+            image = drink.image;
+            category = drink.con;
+            name = drink.nombre;
+            description = SliceDescription(drink.pasos_preparacion);
             like = Like();
         }
 
@@ -84,19 +83,11 @@ namespace PETS.ViewModel
         }
         public string SliceDescription(string param)
         {
-            int count = 1;
             description = string.Empty;
-            var descriptions = param.Split('.');
-            foreach (string item in descriptions)
+            var preparations = param.Split('|');
+            foreach (string item in preparations)
             {
-                var countSteps = descriptions.Length - count;
-                if (countSteps < 1)
-                    break;
-                if (count != descriptions.Length)
-                {
-                    description = description + $"● {item.TrimStart()} \r\n\r\n";
-                    count++;
-                }
+                description = description + $"● {item.TrimStart()} \r\n\r\n";
             }
             return description;
         }
