@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using PETS.Model;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace PETS.Service
 {

@@ -1,6 +1,7 @@
 ﻿using PETS.Model;
 using PETS.Service;
 using PropertyChanged;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace PETS.ViewModel
@@ -15,7 +16,7 @@ namespace PETS.ViewModel
             Task.Run(async () =>
             {
                 loading = true;
-                await ShowCocktail();
+                await ShowCocktails();
                 loading = false;
             });
         }
@@ -25,7 +26,21 @@ namespace PETS.ViewModel
         public string description { get; set; }
         public string like { get; set; }
         public bool loading { get; set; }
+        public ObservableCollection<Drink> cocktails
+        {
+            set; get;
+        } = new ObservableCollection<Drink>();
 
+        public async Task ShowCocktails()
+        {
+            var lstCocktails = await _cocktailService.GetCocktailAsync();
+            var itemsCocktail = lstCocktails.Take(10).ToList();
+            foreach (var item in itemsCocktail)
+            {
+                item.like = Like();
+                cocktails.Add(item);
+            }
+        }
         public ICommand UpdateRandomCocktail => new Command(async () =>
         {
             loading = true;

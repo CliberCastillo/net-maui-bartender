@@ -2,9 +2,6 @@
 using PETS.Service;
 using PropertyChanged;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace PETS.ViewModel
@@ -23,24 +20,27 @@ namespace PETS.ViewModel
         }
         public ICommand LoadMoreCommand => new Command(async () =>
         {
+            await RefreshCocktails(cocktails.Count());
         });
-        public ICommand AlertCommand => new Command(async () =>
+        public ICommand RefreshCommand => new Command(async () =>
         {
+            IsRefreshing = true;
+            cocktails.Clear();
             await ShowCocktails();
+            IsRefreshing = false;
         });
-        public ICommand GoHome => new Command(async () =>
-        {
-            await ShowCocktails();
-        });
+
         public ObservableCollection<Drink> cocktails
         {
             set; get;
         } = new ObservableCollection<Drink>();
+        public bool IsRefreshing { get; set; }
 
         public async Task ShowCocktails()
-        {
+            {
             var lstCocktails = await _cocktailService.GetCocktailAsync();
-            foreach (var item in lstCocktails)
+            var itemsCocktail = lstCocktails.Take(10).ToList();
+            foreach (var item in itemsCocktail)
             {
                 item.like = Like();
                 cocktails.Add(item);
@@ -74,6 +74,17 @@ namespace PETS.ViewModel
                     break;
             }
             return like;
+        }
+
+        private async Task RefreshCocktails(int index)
+        {
+            var listado = await _cocktailService.GetCocktailAsync();
+            var pageItems = listado.Skip(index).Take(10).ToList();
+            foreach (var item in pageItems)
+            {
+                item.like = Like();
+                cocktails.Add(item);
+            }
         }
     }
 }
