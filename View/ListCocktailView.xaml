@@ -6,85 +6,127 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}">
 
 
-    <RefreshView Command="{Binding RefreshCommand}"
+    <Grid RowDefinitions="*,72"
+          IgnoreSafeArea="True">
+        <RefreshView Command="{Binding RefreshCommand}"
                  IsRefreshing="{Binding IsRefreshing}">
-        <CollectionView Grid.Row="1"
+            <CollectionView Grid.Row="1"
                                 Margin="10,0,10,15"
                                 ItemsSource="{Binding cocktails}"
                                 SelectionMode="None"
                                 RemainingItemsThreshold="1"
                                 RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" 
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
                                             Span="1"/>
-            </CollectionView.ItemsLayout>
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Margin="5">
-                        <Border StrokeShape="RoundRectangle 10"
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="5">
+                            <Border StrokeShape="RoundRectangle 10"
                                         BackgroundColor="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Primary}}">
-                            <Grid ColumnDefinitions=".3*,.7*"
+                                <Grid ColumnDefinitions=".3*,.7*"
                                             BackgroundColor="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Secondary}}">
-                                <Border StrokeShape="RoundRectangle 10"
+                                    <Border StrokeShape="RoundRectangle 10"
                                             BackgroundColor="Transparent"
                                             Margin="5,5,5,5"
                                             >
-                                    <Image Source="{Binding image}"
+                                        <Image Source="{Binding image}"
                                                 WidthRequest="100"
                                                 HeightRequest="100"
                                                 />
-                                </Border>
-                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
-                                    <Grid ColumnDefinitions=".80*,.20*">
-                                        <VerticalStackLayout>
-                                            <Label Text="{Binding nombre}"
+                                    </Border>
+                                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                        <Grid ColumnDefinitions=".80*,.20*">
+                                            <VerticalStackLayout>
+                                                <Label Text="{Binding nombre}"
                                                             FontSize="19"
                                                             FontAttributes="Bold"
                                                             />
-                                            <Label Text="En base a Ron"
+                                                <Label Text="En base a Ron"
                                                         TextColor="{StaticResource Gray400}"
                                                         FontSize="14"
                                                         FontAttributes="Bold"
                                                             />
-                                        </VerticalStackLayout>
-                                        <Button Text="{StaticResource next}"
+                                            </VerticalStackLayout>
+                                            <Button Text="{StaticResource next}"
                                                         Grid.Column="1"
                                                         Margin="0,0,2,0"
                                                         BackgroundColor="Transparent"
                                                         FontFamily="FAS"/>
-                                    </Grid>
+                                        </Grid>
 
-                                    <Grid ColumnDefinitions=".5*,.5*">
-                                        <HorizontalStackLayout>
-                                            <Label Text="{StaticResource clock}"
+                                        <Grid ColumnDefinitions=".5*,.5*">
+                                            <HorizontalStackLayout>
+                                                <Label Text="{StaticResource clock}"
                                                         FontSize="12"
                                                         Margin="0,0,0,1"
                                                         VerticalOptions="End"
                                                         FontFamily="FAS"/>
-                                            <Label Text="5 min"
+                                                <Label Text="5 min"
                                                         FontSize="12"
                                                         FontAttributes="Bold"
                                                         Margin="5,0,0,0"
                                                         VerticalOptions="End"/>
-                                        </HorizontalStackLayout>
+                                            </HorizontalStackLayout>
 
-                                        <Label Text="{Binding like}"
+                                            <Label Text="{Binding like}"
                                                     Grid.Column="1"
                                                     Margin="10,20,10,0"
                                                     HorizontalTextAlignment="End"
                                                     TextColor="{AppThemeBinding Light={StaticResource Yellow100Accent}, Dark={StaticResource Yellow}}"
                                                     FontAttributes="Bold"/>
-                                    </Grid>
-                                </VerticalStackLayout>
-                            </Grid>
-                        </Border>
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.SelectedItems >
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.SelectedItems >
 
-            </CollectionView.SelectedItems>
-        </CollectionView>
-    </RefreshView>
+                </CollectionView.SelectedItems>
+            </CollectionView>
+        </RefreshView>
+        <Border Grid.Row="1"
+                HeightRequest="65"
+                StrokeThickness="0"
+                BackgroundColor="{StaticResource Secondary}">
+            <Border.Shadow>
+                <Shadow Radius="40" Opacity="0.1" />
+            </Border.Shadow>
+            <Grid RowDefinitions="*" ColumnDefinitions="*,*,*,*,*"
+                  VerticalOptions="Center">
+                <Border Grid.Column="0"
+                        StrokeThickness="0" StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{StaticResource Primary}"
+                        HeightRequest="50" WidthRequest="50">
+                    <Button Grid.Column="0" 
+                            Text="{StaticResource drink}"
+                            FontFamily="FAS"
+                            BackgroundColor="Transparent"
+                            FontSize="25"/>
+                </Border>
+                <Button Grid.Column="1" 
+                        Text="{StaticResource botle}"
+                        FontFamily="FAS"
+                        FontSize="23"/>
+                <Button Text="{StaticResource home}"
+                        Grid.Column="2"
+                        FontFamily="FAS"
+                        Command="{Binding HomeSelectedCommand}"
+                        FontSize="23"/>
+                <Button Grid.Column="3" 
+                        Text="{StaticResource bell}"
+                        FontFamily="FAS"
+                        FontSize="23"/>
+
+                <Button Grid.Column="4" 
+                        Text="{StaticResource seting}"
+                        FontFamily="FAS"
+                        FontSize="23"/>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>
