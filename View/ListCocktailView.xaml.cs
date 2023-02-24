@@ -1,17 +1,26 @@
+using PETS.Service;
 using PETS.ViewModel;
 
 namespace PETS.View;
 
 public partial class ListCocktailView : ContentPage
 {
-	public ListCocktailView(ListCocktailViewModel listCocktailViewModel)
+    private readonly ICocktailService cocktailService;
+
+    public ListCocktailView(ICocktailService cocktailService)
 	{
 		InitializeComponent();
-		this.BindingContext = listCocktailViewModel;
-	}
+		this.BindingContext = new ListCocktailViewModel(cocktailService);
+        this.cocktailService = cocktailService;
+    }
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private async Task Button_Clicked(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        await Navigation.PopAsync();
+    }
+
+    private void Button_Clicked_1(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new HomeView(this.cocktailService), true);
     }
 }

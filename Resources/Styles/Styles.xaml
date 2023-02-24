@@ -6,7 +6,7 @@
     
     <x:String x:Key="eye">&#xf06e;</x:String>
     <x:String x:Key="clock">&#xf017;</x:String>
-    <x:String x:Key="next">&#xf35a;</x:String>
+    <x:String x:Key="next">&#xf054;</x:String>
     <x:String x:Key="back">&#xf060;</x:String>
     <x:String x:Key="share">&#xf14d;</x:String>
     <x:String x:Key="love">&#xf004;</x:String>
@@ -262,7 +262,7 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}" />
         <Setter Property="CancelButtonColor" Value="{StaticResource Gray500}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Secondary}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Primary}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="VisualStateManager.VisualStateGroups">

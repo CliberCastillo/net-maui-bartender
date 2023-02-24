@@ -4,9 +4,9 @@ namespace PETS;
 
 public partial class App : Application
 {
-    public App(AppShell appShell)
+    public App()
     {
         InitializeComponent();
-        MainPage = appShell;
+        MainPage = new AppShell();
     }
 }

@@ -2,81 +2,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PETS.View.ListCocktailView"
-             Title="Listado de cocteles"
-             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}">
+             BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Secondary}}">
 
 
-    <Grid RowDefinitions="*,72"
-          IgnoreSafeArea="True">
+    <Grid RowDefinitions="50,*,72"
+          IgnoreSafeArea="True"
+          BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}">
+        <SearchBar Placeholder="Buscar coctel"/>
         <RefreshView Command="{Binding RefreshCommand}"
-                 IsRefreshing="{Binding IsRefreshing}">
-            <CollectionView Grid.Row="1"
-                                Margin="10,0,10,15"
-                                ItemsSource="{Binding cocktails}"
-                                SelectionMode="None"
-                                RemainingItemsThreshold="1"
-                                RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
+                         IsRefreshing="{Binding IsRefreshing}"
+                         Grid.Row="1"
+                         >
+            <CollectionView Margin="10,0,10,15"
+                                    ItemsSource="{Binding cocktails}"
+                                    SelectionMode="None"
+                                    RemainingItemsThreshold="1"
+                                    RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" 
-                                            Span="1"/>
+                                                Span="1"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Margin="5">
                             <Border StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Primary}}">
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Primary}}">
                                 <Grid ColumnDefinitions=".3*,.7*"
-                                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Secondary}}">
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray}, Dark={StaticResource Secondary}}">
                                     <Border StrokeShape="RoundRectangle 10"
-                                            BackgroundColor="Transparent"
-                                            Margin="5,5,5,5"
-                                            >
+                                                BackgroundColor="Transparent"
+                                                Margin="5,5,5,5"
+                                                >
                                         <Image Source="{Binding image}"
-                                                WidthRequest="100"
-                                                HeightRequest="100"
-                                                />
+                                                    WidthRequest="100"
+                                                    HeightRequest="100"
+                                                    />
                                     </Border>
                                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                                         <Grid ColumnDefinitions=".80*,.20*">
                                             <VerticalStackLayout>
                                                 <Label Text="{Binding nombre}"
-                                                            FontSize="19"
-                                                            FontAttributes="Bold"
-                                                            />
+                                                                FontSize="19"
+                                                                FontAttributes="Bold"
+                                                                />
                                                 <Label Text="En base a Ron"
-                                                        TextColor="{StaticResource Gray400}"
-                                                        FontSize="14"
-                                                        FontAttributes="Bold"
-                                                            />
+                                                            TextColor="{StaticResource Gray400}"
+                                                            FontSize="14"
+                                                            FontAttributes="Bold"
+                                                                />
                                             </VerticalStackLayout>
                                             <Button Text="{StaticResource next}"
-                                                        Grid.Column="1"
-                                                        Margin="0,0,2,0"
-                                                        BackgroundColor="Transparent"
-                                                        FontFamily="FAS"/>
+                                                            Grid.Column="1"
+                                                            Margin="0,0,2,0"
+                                                            BackgroundColor="Transparent"
+                                                            FontFamily="FAS"/>
                                         </Grid>
 
                                         <Grid ColumnDefinitions=".5*,.5*">
                                             <HorizontalStackLayout>
                                                 <Label Text="{StaticResource clock}"
-                                                        FontSize="12"
-                                                        Margin="0,0,0,1"
-                                                        VerticalOptions="End"
-                                                        FontFamily="FAS"/>
+                                                            FontSize="12"
+                                                            Margin="0,0,0,1"
+                                                            VerticalOptions="End"
+                                                            FontFamily="FAS"/>
                                                 <Label Text="5 min"
-                                                        FontSize="12"
-                                                        FontAttributes="Bold"
-                                                        Margin="5,0,0,0"
-                                                        VerticalOptions="End"/>
+                                                            FontSize="12"
+                                                            FontAttributes="Bold"
+                                                            Margin="5,0,0,0"
+                                                            VerticalOptions="End"/>
                                             </HorizontalStackLayout>
 
                                             <Label Text="{Binding like}"
-                                                    Grid.Column="1"
-                                                    Margin="10,20,10,0"
-                                                    HorizontalTextAlignment="End"
-                                                    TextColor="{AppThemeBinding Light={StaticResource Yellow100Accent}, Dark={StaticResource Yellow}}"
-                                                    FontAttributes="Bold"/>
+                                                        Grid.Column="1"
+                                                        Margin="10,20,10,0"
+                                                        HorizontalTextAlignment="End"
+                                                        TextColor="{AppThemeBinding Light={StaticResource Yellow100Accent}, Dark={StaticResource Yellow}}"
+                                                        FontAttributes="Bold"/>
                                         </Grid>
                                     </VerticalStackLayout>
                                 </Grid>
@@ -89,7 +91,8 @@
                 </CollectionView.SelectedItems>
             </CollectionView>
         </RefreshView>
-        <Border Grid.Row="1"
+
+        <Border Grid.Row="2"
                 HeightRequest="65"
                 StrokeThickness="0"
                 BackgroundColor="{StaticResource Secondary}">
@@ -115,7 +118,7 @@
                 <Button Text="{StaticResource home}"
                         Grid.Column="2"
                         FontFamily="FAS"
-                        Command="{Binding HomeSelectedCommand}"
+                        Clicked="Button_Clicked_1"
                         FontSize="23"/>
                 <Button Grid.Column="3" 
                         Text="{StaticResource bell}"
